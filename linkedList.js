@@ -44,7 +44,7 @@ function _get(n) {
     if (n === index) {
       return currentNode;
     }
-    // console.log('in while: ', index, currentNode.value);
+    //console.log('in while: ', index, currentNode.value);
     index += 1;
     currentNode = currentNode.next;
 
@@ -58,10 +58,41 @@ function _get(n) {
 }
 
 function _remove(n) {
+  var currentNode = _get(n);
+  var prevNode = _get(n - 1);
+  var nextNode = _get(n + 1);
+  if (n === 0) {
+    head = nextNode;
+  } else if (currentNode === false) {
+    return false;
+  } else if (nextNode === false){
+    prevNode.next = null;
+    tail = prevNode;
+
+  }
+  prevNode.next = nextNode;
+  return head;
 
 }
 
 function _insert(x, n) {
+  var currentNode = _get(n);
+  var prevNode = _get(n - 1);
+  var nextNode = _get(n + 1);
+  var newNode = {
+    value: x,
+    next: null
+  };
+  if (n < 0 || _get(n) === false) {
+    return false;
+  } else if (n === 0) {
+    newNode.next = head;
+    head = newNode;
+  } else {
+    newNode.next = _get(n);
+    prevNode.next = newNode;
+
+  }
 
 }
 
@@ -75,3 +106,9 @@ return {
 };
 
 }
+
+var Test  = linkedListGenerator();
+Test.add('cat');
+Test.add('dog');
+Test.add('snake');
+console.log(Test.remove(2));
